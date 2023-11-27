@@ -1,0 +1,655 @@
+%LaTeX Form 9.0
+
+%Documentclass
+
+\documentclass[a4paper,10pt,openany]{book}
+
+%Packages
+
+\usepackage{latexsym,amssymb}
+\usepackage[leqno]{amsmath}
+%\usepackage{amsthm}
+\usepackage{kotex}
+\usepackage{fullpage}
+\usepackage{graphicx}
+
+
+
+%Title
+
+\title{\Huge{\LaTeX$\:$Form}\\
+	\LARGE{xth Edition $\cdot$ Version 9.0}}
+\author{\LARGE{\textsf{Author : Someone}}\\
+	\LARGE{\textsf{Form made by Dyne Simian}}}
+\date{\textrm{Nov 16, 2022}}
+
+
+
+%Index
+\usepackage{imakeidx}
+\makeindex[name=symb,title={List of Special Symbols and\\Abbreviations (특수 기호 및 약어 목록)%
+	\addcontentsline{toc}{chapter}{List of Special Symbols (특수 기호 목록)}%
+	\daggerfootnote{Sec. 1.1에서 설명된 표준적인 집합론적 기호들은 이곳에 나열되지 않았다.}},
+columns=3,options= -s liststyle.ist]
+\makeindex[intoc,title={Index (색인)}]
+\makeindex[intoc,name=eng,title={English Index (영어 색인)}]
+\newcommand{\dind}[2]{\index{#1 (#2)}\index[eng]{#2}}	%Double Index
+\newcommand{\eind}[1]{\index{#1}\index[eng]{#1}}		%English Double Index
+\newcommand{\iind}[4]{\index{#1 (#3)!#2 (#4)}\index[eng]{#3!#4}}
+
+
+
+%Theorems
+
+\newtheorem{theorem}{Theorem}[chapter]				%theorem
+\newtheorem{axiom}[theorem]{Axiom}					%axiom
+\newtheorem{definition}[theorem]{Definition}		%definition
+\newtheorem{example}[theorem]{Example}				%example
+\newtheorem{lemma}[theorem]{Lemma}					%lemma
+\newtheorem{notation}[theorem]{Notation}			%notation
+\newtheorem{Problem}[theorem]{Problem}				%problem
+\newtheorem{proposition}[theorem]{Proposition}		%proposition
+\newtheorem{remark}[theorem]{Remark}				%remark
+\newtheorem{nex}[theorem]{}							%nothing
+\newtheorem{problem}{}[chapter]						%exercise
+
+
+
+
+%Formats
+
+%%Watermark
+\usepackage{draftwatermark}
+\SetWatermarkText{Translated by Dyne}
+\SetWatermarkScale{2}
+\SetWatermarkLightness{.9}
+\makeatletter
+\def\watermarkoff{%
+	\@sc@wm@stampfalse
+}
+\makeatother 
+\makeatletter
+\def\watermarkon{%
+	\@sc@wm@stamptrue
+}
+\makeatother
+
+%%Chapter Format
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext, color}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\LARGE\bfseries}%
+{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\LARGE\bfseries}
+
+%%Table of Contents
+\usepackage{titletoc}%
+\titlecontents{chapter}% <section-type>
+[0pt]% <left>
+{\bfseries}% <above-code>
+{\\\thecontentslabel.\hspace{1em}}% <numbered-entry-format>
+{}% <numberless-entry-format>
+{\hfill\contentspage}% <filler-page-format>
+
+%%Enumerate Format
+\usepackage{enumitem}
+\setlist[enumerate]{itemsep=-1mm,nosep,itemindent=-2.35mm}
+\newcommand\setItemnumber[1]{\setcounter{enumi}{\numexpr#1-1\relax}}
+
+%%Dual Letter
+\makeatletter
+\def\dual#1{\expandafter\dual@aux#1\@nil}
+\def\dual@aux#1/#2\@nil{\begin{tabular}[b]{@{}c@{}}#1\\#2\end{tabular}}
+\makeatother
+
+%%Dagger Footnote
+\newcounter{daggerfootnote}
+\newcommand*{\daggerfootnote}[1]{%
+	\setcounter{daggerfootnote}{\value{footnote}}%
+	\renewcommand*{\thefootnote}{\fnsymbol{footnote}}%
+	\footnote[2]{#1}%
+	\setcounter{footnote}{\value{daggerfootnote}}%
+	\renewcommand*{\thefootnote}{\arabic{footnote}}%
+}
+
+%%Bibliography Spacing
+\let\oldbibliography\thebibliography
+\renewcommand{\thebibliography}[1]{%
+	\oldbibliography{#1}%
+	\setlength{\itemsep}{0.6pt}}
+
+%%Align Tag Mode
+\makeatletter
+\newcommand{\leqnomode}{\tagsleft@true\let\veqno\@@leqno}
+\newcommand{\reqnomode}{\tagsleft@false\let\veqno\@@eqno}
+\makeatother
+
+
+
+%General
+
+\newcommand{\st}{\;\mrm{s.t.}\;}					%such that
+\newcommand{\for}{\;\mrm{for}\;}
+\newcommand{\rel}{\mrm{rel}}						%relatively
+\newcommand{\tf}{\therefore}
+\newcommand{\floor}[1]{\lfloor #1\rfloor}
+
+
+%Fonts
+
+%%Math Fonts
+\newcommand{\mb}[1]{\mathbb{#1}}					%blackboard font, math mode
+\newcommand{\mbf}[1]{\mathbf{#1}}					%bold font, math mode
+\newcommand{\mc}[1]{\mathcal{#1}}					%calligraphy font, math mode
+\newcommand{\mf}[1]{\mathfrak{#1}}					%fraktur font, math mode
+\newcommand{\mi}[1]{\mathit{#1}}					%italic font, math mode
+\newcommand{\mrm}[1]{\mathrm{#1}}					%roman font, math mode
+\usepackage{mathrsfs}								%provides mathscr
+\newcommand{\ms}[1]{\mathscr{#1}}					%script font, math mode
+\newcommand{\msf}[1]{\mathsf{#1}}					%sans-serif font, math mode	
+
+%\DeclareFontFamily{OT1}{pzc}{}
+%\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.200] pzcmi7t}{}
+%\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}	%mathpzc font
+%\usepackage{bm}									%bm Package, defines \bm
+
+\newcommand{\mtn}[1]{\text{\tn{#1}}}
+
+%%Text Fonts
+\newcommand{\tb}[1]{\textbf{#1}}					%bold font, text
+\newcommand{\ti}[1]{\textit{#1}}					%italic font, text
+\newcommand{\tn}[1]{\textnormal{#1}}				%normal font, text
+\newcommand{\tsf}[1]{\textsf{#1}}					%sans-serif font, text
+
+%%Letter Size
+\newcommand{\ds}{\displaystyle}						%display style
+\newcommand{\scs}{\scriptstyle}						%script style
+\newcommand{\sss}{\scriptscriptstyle}				%script^2 style
+
+
+
+%Math Symbol
+
+%%Arrow
+
+\newcommand{\ra}{\rightarrow}						%right arrow
+\newcommand{\la}{\leftarrow}						%left arrow
+\newcommand{\lra}{\leftrightarrow}					%leftright arrow
+\newcommand{\Ra}{\Rightarrow}						%double right arrow
+\newcommand{\La}{\Leftarrow}						%double left arrow
+\newcommand{\Lra}{\Leftrightarrow}					%double leftright arrow
+\newcommand{\longra}{\longrightarrow}				%long right arrow
+\newcommand{\hra}{\hookrightarrow}					%hooked right arrow
+\usepackage{mathtools}
+\newcommand{\xhra}{\xhookrightarrow}
+
+%%Fraction
+\newcommand{\fra}[1]{\frac{1}{#1}}					%fraction whoes numerator is 1
+\newcommand{\sfra}[1]{\scalebox{1}{$\fra{#1}$}}
+\newcommand{\sfrac}[2]{\scalebox{1}{$\frac{#1}{#2}$}}
+\newcommand{\fp}{\fra{2\pi}}						%1/2\pi
+\newcommand{\fpn}{\left(\fp\right)^n}				%(1/2\pi)^n
+\newcommand{\fpi}{\fra{2\pi i}}						%1/2\pi i
+\newcommand{\fpin}{\left(\fpi\right)^n}				%(1/2\pi i)^n
+
+%%Quad
+\newcommand{\qrq}{\quad\ra\quad}
+\newcommand{\qlq}{\quad\la\quad}
+\newcommand{\qlrq}{\quad\lra\quad}
+\newcommand{\qRq}{\quad\Ra\quad}
+\newcommand{\qLq}{\quad\La\quad}
+\newcommand{\qLrq}{\quad\Lra\quad}
+\newcommand{\qcq}{\quad,\quad}
+\newcommand{\qoq}{\quad\mrm{or}\quad}
+\newcommand{\qnq}{\quad\mrm{and}\quad}
+\newcommand{\qsq}{\quad\mrm{s.t.}\quad}
+\newcommand{\qwq}{\quad\wedge\quad}
+\newcommand{\qvq}{\quad\vee\quad}
+
+
+%%Fundamental Sets
+\newcommand{\es}{\emptyset}							%empty set
+\newcommand{\N}{\mathbb N}							%natural number set
+\newcommand{\Z}{\mathbb Z}							%integer set
+\newcommand{\Zn}{\mathbb Z^n}						%product of integer sets
+\newcommand{\Q}{\mathbb Q}							%rational number set
+\newcommand{\Qn}{\mathbb Q^n}						%product of rational number sets
+\newcommand{\R}{\mathbb R}							%real number set
+\newcommand{\Rn}{\mathbb R^n}						%product of real number sets
+\newcommand{\C}{\mathbb C}							%complex number set
+\newcommand{\Cn}{\mathbb C^n}						%product of complex number sets
+\newcommand{\Cno}{\mathring{\mathbb C}^n}			%C^n\circ
+\newcommand{\K}{\mathbb K}							%typical field
+
+
+
+%Set Theory
+
+\newcommand{\card}[1]{\mrm{card}\left(#1\right)}	%cardinality
+\newcommand{\bs}{\subset}							%subset
+\newcommand{\ps}{\supset}							%superset
+\newcommand{\bseq}{\subseteq}
+\newcommand{\bsneq}{\subsetneq}
+\newcommand{\pseq}{\supseteq}
+\newcommand{\psneq}{\supsetneq}
+\newcommand{\we}{\wedge}							%wedge
+\newcommand{\mt}{\mapsto}							%mapsto
+\newcommand{\ol}{\overline}							%overline
+\newcommand{\m}{\setminus}							%setminus
+\newcommand{\rest}{\!\upharpoonright\!}				%restriction
+\newcommand{\op}{^{\mrm{op}}}						%opposite
+\newcommand{\id}{\mrm{id}}							%identity function (lowercase)
+\newcommand{\Id}{\mrm{Id}}							%identity function (uppercase)
+\newcommand{\pr}{\mrm{pr}}							%Projection
+
+
+
+%Category Theory
+
+\newcommand{\Ob}{\mrm{Ob}}
+\newcommand{\cC}{\msf{CAT}}							%category of categories
+\newcommand{\cS}{\msf{Set}}							%category of sets
+\newcommand{\cT}{\msf{Top}}							%category of topological spaces
+\newcommand{\cM}{\msf{Mon}}							%category of monoids
+\newcommand{\cG}{\msf{Grp}}							%category of groups
+\newcommand{\cR}{\msf{Ring}}						%category of rings
+\newcommand{\Sch}[1]{\mf{Sch}(#1)}					%Category of Schemes
+\newcommand{\limra}{\varinjlim}						%Direct limit
+\newcommand{\limla}{\varprojlim}					%Inverse limit
+
+
+%Topology
+
+\newcommand{\inte}[1]{\mrm{int}\left(#1\right)}		%interior
+\newcommand{\cl}[1]{\mrm{cl}\left(#1\right)}		%closure
+\newcommand{\ext}[1]{\mrm{ext}\left(#1\right)}		%exterior
+\newcommand{\bdy}[1]{\mrm{bdy}\left(#1\right)}		%boundary
+\newcommand{\der}[1]{\mrm{der}\left(#1\right)}		%derived set
+
+
+
+%Geometry
+
+\newcommand{\Sn}{\mb S^n}							%n-Sphere
+\renewcommand{\P}{\mb P}							%Projective space
+\newcommand{\Pn}{\mb P^n}							%n-Projective space
+\newcommand{\T}{\mb T}
+\newcommand{\Tn}{\mb T^n}							%n-Torus
+\newcommand{\B}{\mb B}								%Ball
+\newcommand{\Bn}{\mb B^n}							%n-Ball
+\newcommand{\bB}{\bar{\mb B}}
+\newcommand{\bBn}{\bar{\mb B}^n}
+\newcommand{\Hn}{\mb H^n}
+\newcommand{\An}{\mb A^n}							%Affine n-space
+
+
+%Algebra
+
+\newcommand{\mul}{\:|\:}							%divide
+\newcommand{\tril}{\triangleleft}					%normal subgroup
+\newcommand{\trilneq}{\mathrel{\ooalign{$\lneq$\cr\raise.22ex\hbox{$\lhd$}\cr}}}	%proper normal subgroup
+\renewcommand{\mod}{\mrm{mod}\:}					%mod
+\newcommand{\sgn}{\mrm{sgn}\:}						%sign
+\newcommand{\rank}{\mrm{rank}\:}					%rank of free modules
+\newcommand{\Mat}{\mrm{Mat}}						%matrices
+\newcommand{\Char}{\mrm{char}\:}					%character
+\newcommand{\norm}[2]{N_{#1}{}^{#2}}				%norm
+\newcommand{\tr}[2]{T_{#1}{}^{#2}}					%trace
+\newcommand{\trd}{\mrm{tr.d.}}						%transcendental dimension
+\newcommand{\trdeg}[2]{\mrm{tr.deg}_{\msf{#1}}{\msf{#2}}}
+\newcommand{\supp}{\mrm{supp}\:}					%support (lowercase)
+\newcommand{\Supp}{\mrm{Supp}\:}					%support (uppercase)
+\newcommand{\Tran}{\mrm{Tran}}
+\newcommand{\Ad}{\mrm{Ad}\:}
+\newcommand{\ad}{\mrm{ad}\:}
+\newcommand{\Tan}[1]{\mrm{Tan}(#1)}					%Tangent Space
+\renewcommand{\dim}[1][]{\mrm{dim}_{#1}\:}			%dimension
+\newcommand{\codim}[1][]{\mrm{codim}_{#1}\:}		%codimension
+\newcommand{\nil}{\mrm{nil}\:}						%nilradical
+
+%%Morphisms
+\newcommand{\Dom}{\mrm{Dom}\:}						%domain
+\newcommand{\Ker}{\mrm{Ker}\:}						%kernel (Uppercase)
+\newcommand{\Coker}{\mrm{Coker}\:}					%cokernel
+\newcommand{\coker}{\mrm{coker}\:}
+\newcommand{\im}{\mrm{im}}							%image(lowercase)
+\newcommand{\Coim}{\mrm{Coim}\:}					%coimage
+\newcommand{\Hom}{\mrm{Hom}}						%homomorphisms
+\newcommand{\End}{\mrm{End}\:}						%endomorphisms
+\newcommand{\Aut}{\mrm{Aut}\:}						%automorphisms
+\newcommand{\Autx}[1]{\mrm{Aut}_{#1}}				%automorphism Group
+\newcommand{\Int}{\mrm{Int}\:}						%Inner automorphism
+\newcommand{\Der}[3]{\mrm{Der}_{\msf{#1}}(\msf{#2},\msf{#3})}	%Derivations
+
+%%Diagram
+\usepackage{stackrel}								%enhance stackrel command
+\newcommand{\sr}[2]{\stackrel{#1}{#2}}				%stackrel
+\usepackage{tikz-cd}								%commutative diagram
+\newcommand{\arrow}{\arrow}							%arrow of tikzcd
+\tikzset{
+	symbol/.style={
+		draw=none,
+		every to/.append style={
+			edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+	}
+}
+
+%%Algebraic Geometry
+\newcommand{\etale}{\text{Sp\'e}}
+\newcommand{\Sing}{\mrm{Sing}\:}					%Set of Singular Points
+\newcommand{\hO}[1]{\hat{\mc O}_{#1}}
+\newcommand{\Ann}{\mrm{Ann}\:}
+\newcommand{\Spec}{\mrm{Spec}\:}
+\newcommand{\Proj}{\mrm{Proj}\:}
+
+%%Lie/Algebraic Groups
+\newcommand{\GL}{\mrm{GL}}
+\newcommand{\gl}{\mf{gl}}
+\newcommand{\SL}{\mrm{SL}}
+
+
+%Analysis
+
+\newcommand{\z}{\mf z}
+\newcommand{\zo}{\mf z_0}
+\newcommand{\rr}{\mrm r}
+\newcommand{\sps}[2]{#1^{(#2)}}						%superscript with parenthesis
+\newcommand{\ch}{\mrm{ch}}							%Cauchy integral
+\renewcommand{\Re}{\mrm{Re}\:}						%real part
+\renewcommand{\Im}{\mrm{Im}\:}						%imaginary part/image(uppercase)
+\newcommand{\ind}{\mrm{Ind}}						%index of curve
+\newcommand{\res}[2]{\mrm{Res}\:(#1;\:#2)}			%residue
+\newcommand{\diam}[1]{\mrm{diam}\left(#1\right)}	%diameter
+\newcommand{\vol}[1]{\mrm{vol}\:\left(#1\right)}	%volume
+\newcommand{\Vol}{\mrm{Vol}}
+\newcommand{\co}{\overline{co}}						%closed convex hull
+\newcommand{\Lip}{\mrm{Lip}\:}						%Lipschitz
+\newcommand{\rad}{\mrm{rad}\:}						%radical
+\newcommand{\grad}{\mrm{grad}\:}					%gradient
+\newcommand{\dist}{\mrm{dist}}						%distance
+\newcommand{\orth}{\:\bot\:}
+
+%%Absolutely Continuous
+\usepackage{pifont}
+\DeclareFontFamily{U}{matha}{\hyphenchar\font45}
+\DeclareFontShape{U}{matha}{m}{n}{
+	<-6> matha5 <6-7> matha6 <7-8> matha7
+	<8-9> matha8 <9-10> matha9
+	<10-12> matha10 <12-> matha12
+}{}
+\makeatletter
+\newcommand\Pimathsymbol[3][\mathord]{%
+	#1{\@Pimathsymbol{#2}{#3}}}
+\def\@Pimathsymbol#1#2{\mathchoice
+	{\@Pim@thsymbol{#1}{#2}\tf@size}
+	{\@Pim@thsymbol{#1}{#2}\tf@size}
+	{\@Pim@thsymbol{#1}{#2}\sf@size}
+	{\@Pim@thsymbol{#1}{#2}\ssf@size}}
+\def\@Pim@thsymbol#1#2#3{%
+	\mbox{\fontsize{#3}{#3}\Pisymbol{#1}{#2}}}
+\makeatother
+\newcommand{\newll}{\Pimathsymbol[\mathrel]{matha}{"CE}}
+
+%%Disc & Annulus
+\newcommand{\D}[2]{D\left(#1;\:#2\right)}			%open disc
+\newcommand{\Dp}[2]{D'\left(#1;\:#2\right)}			%punctured disc
+\newcommand{\bD}[2]{\bar D\left(#1;\:#2\right)}		%closed disc
+\newcommand{\bU}{\bar U}							%closed unit disc
+\newcommand{\A}[2]{A\left(#1,#2\right)}				%annulus
+
+%%Exponential
+\newcommand{\eita}{e^{i\theta}}						%exponential i theta
+\newcommand{\eiita}{e^{-i\theta}}					%exponential -i theta
+\newcommand{\einta}{e^{in\theta}}					%exponential in theta
+\newcommand{\eiinta}{e^{-in\theta}}					%exponential -in theta
+\newcommand{\eitx}{e^{itx}}							%exponential itx
+\newcommand{\eiitx}{e^{-itx}}						%exponential -itx
+\newcommand{\eitz}{e^{itz}}							%exponential itz
+\newcommand{\eiitz}{e^{-itz}}						%exponential -itz
+\newcommand{\epi}[2]{e^{2\pi i #1\cdot #2}}
+\newcommand{\empi}[2]{e^{-2\pi i #1\cdot #2}}
+
+%%Braket
+\usepackage{braket}									%braket package
+\newcommand{\bk}[1]{\Braket{#1}}					%braket
+
+%%Derivative
+\newcommand{\dif}[2]{\frac{d#1}{d#2}}				%derivative
+\newcommand{\dl}[3]{\left.\dif{#1}{#2}\right|_{#3}}
+\newcommand{\pa}{\partial}							%Cauchy-Riemann derivative symbol
+\newcommand{\bpa}{\bar\partial}						%complex conjugate derivative symbol
+\newcommand{\pdif}[2]{\frac{\pa#1}{\pa#2}}			%partial derivative
+\newcommand{\pdx}[2]{\pdif{#1}{x^{#2}}}
+\newcommand{\pdl}[3]{\left.\pdif{#1}{#2}\right|_{#3}}
+\newcommand{\pdxl}[3]{\left.\pdx{#1}{#2}\right|_{#3}}
+\newcommand{\tri}{\triangle}						%Laplacian
+
+%%Integral
+\newcommand{\intm}[2]{\int_{#1}#2\:d\mu}			%Lebesgue integral respect to measure \mu
+\newcommand{\intx}[4]{\int_{#1}^{#2}#3\:d#4}		%integral
+\newcommand{\intr}{\int_{-\infty}^{\infty}}			%integration over (-\infty,\infty)=\R
+\newcommand{\intrp}{\int_0^{\infty}}				%integration over (0,\infty)=\R^+
+\newcommand{\intt}{\int_{-\pi}^{\pi}}				%integration over (-\pi,\pi)=T
+\newcommand{\inttt}{\int_0^{2\pi}}					%integration over (0,2\pi)
+
+%%Limit
+\newcommand{\limn}{\lim_{n\ra\infty}}				%limit n goes to infinity
+\newcommand{\limN}{\lim_{N\ra\infty}}				%limit N goes to infinity
+\newcommand{\limm}{\lim_{m\ra\infty}}				%limit m goes to infinity
+\newcommand{\limi}{\lim_{i\ra\infty}}				%limit i goes to infinity
+\newcommand{\limj}{\lim_{j\ra\infty}}				%limit j goes to infinity
+\newcommand{\limsupn}{\limsup_{n\ra\infty}}			%limit supremum n goes to infinity
+\newcommand{\liminfn}{\liminf_{n\ra\infty}}			%limit infimum n goes to infinity
+\newcommand{\limr}{\lim_{r\ra 1}}					%limit r goes to 1
+
+
+%Matrix
+
+\newcommand{\arrtwo}[4]{\left(\begin{array}{cc}#1 & #2\\#3 & #4\end{array}\right)}
+\newcommand{\sqarrtwo}[4]{\left[\begin{array}{cc}#1 & #2\\#3 & #4\end{array}\right]}
+\newcommand{\sqbinom}[2]{\left[\begin{array}{c}#1\\#2\end{array}\right]}
+
+
+
+%Large Symbol
+
+%%Sum
+\newcommand{\sumn}{\sum_{n=1}^\infty}				%sum about n from 1 to infinity
+\newcommand{\sumN}{\sum_{n=0}^\infty}				%sum about n from 0 to infinity
+\newcommand{\sumi}{\sum_{i=1}^n}					%sum about i from 1 to n
+\newcommand{\sumii}{\sum_{i=1}^\infty}				%sum about i from 1 to infinity
+\newcommand{\sumx}[2]{\sum_{#1}^{#2}}				%sum about,from (#1) to (#2)
+\newcommand{\sumxi}[1]{\sum_{#1}^\infty}			%sum about,from (#1) to infinity
+\newcommand{\sumz}{\sum_{-\infty}^\infty}			%sum from -infinity to infinity
+\newcommand{\sumnu}{\ds{\sum_{\nu=0}^{\infty}}}		%sum about multis-index nu from 0 to infinity
+\newcommand{\sumiI}{\ds\sum_{i\in I}}
+
+%%Pi Product
+\newcommand{\prodn}{\prod_{n=1}^\infty}				%Pi product about n from 1 to infinity
+\newcommand{\prodi}{\prod_{i=1}^n}					%Pi product about i from 1 to n
+\newcommand{\prodii}{\prod_{i=1}^\infty}			%Pi product about i from 1 to infinity
+\newcommand{\prodx}[2]{\prod_{#1}^{#2}}				%Pi product about,from (#1) to (#2)
+\newcommand{\prodxi}[1]{\prod_{#1}^\infty}			%Pi product about,from (#1) to infinity
+\newcommand{\prodiI}{\ds\prod_{i\in I}}
+
+%%X Product
+\DeclareFontFamily{U}{mathx}{\hyphenchar\font45}
+\DeclareFontShape{U}{mathx}{m}{n}{
+	<5> <6> <7> <8> <9> <10>
+	<10.95> <12> <14.4> <17.28> <20.74> <24.88>
+	mathx10
+}{}
+\DeclareSymbolFont{mathx}{U}{mathx}{m}{n}
+\DeclareMathSymbol{\bigtimes}{1}{mathx}{"91}		%definition of big times symbol
+\newcommand{\X}{\bigtimes}							%big times symbol
+\newcommand{\Xn}{\bigtimes_{n=1}^\infty}			%X product about n from 1 to infinity
+\newcommand{\Xpi}{\bigtimes_{i=1}^n}				%X product about i from 1 to n
+\newcommand{\Xii}{\bigtimes_{i=1}^\infty}			%X product about i from 1 to infinity
+\newcommand{\Xx}[2]{\bigtimes_{#1}^{#2}}			%X product about,from (#1) to (#2)
+\newcommand{\Xxi}[1]{\bigtimes_{#1}^\infty}			%X product about,from (#1) to infinity
+
+%%Union
+\newcommand{\cupn}{\bigcup_{n=1}^\infty}			%union about n from 1 to infinity
+\newcommand{\cupi}{\bigcup_{i=1}^n}					%union about i from 1 to n
+\newcommand{\cupii}{\bigcup_{i=1}^\infty}			%union about i from 1 to infinity
+\newcommand{\cupx}[2]{\bigcup_{#1}^{#2}}			%union about,from (#1) to (#2)
+\newcommand{\cupxi}[1]{\bigcup_{#1}^\infty}			%union about,from (#1) to infinity
+
+%%Intersection
+\newcommand{\capn}{\bigcap_{n=1}^\infty}			%intersection about n from 1 to infinity
+\newcommand{\capi}{\bigcap_{i=1}^n}					%intersection about i from 1 to n
+\newcommand{\capii}{\bigcap_{i=1}^\infty}			%intersection about i from 1 to infinity
+\newcommand{\capx}[2]{\bigcap_{#1}^{#2}}			%intersection about,from (#1) to (#2)
+\newcommand{\capxi}[1]{\bigcap_{#1}^\infty}			%intersection about,from (#1) to infinity
+
+\newcommand{\We}{\bigwedge}							%big wedge product
+\newcommand{\Oplus}{\bigoplus}						%big direct sum
+\newcommand{\Otimes}{\bigotimes}					%big tensor product
+
+
+
+%Greek Letter
+
+%%Uppercase
+\newcommand{\Ga}{\Gamma}
+\newcommand{\De}{\Delta}
+\newcommand{\Ta}{\Theta}
+\newcommand{\Lm}{\Lambda}
+\newcommand{\Si}{\Sigma}
+\newcommand{\Ph}{\Phi}
+\newcommand{\Om}{\Omega}
+
+%%Lowercase
+\newcommand{\al}{\alpha}
+\newcommand{\be}{\beta}
+\newcommand{\ga}{\gamma}
+\newcommand{\de}{\delta}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\ze}{\zeta}
+\newcommand{\ta}{\theta}
+\newcommand{\vta}{\vartheta}
+\newcommand{\io}{\iota}
+\newcommand{\ka}{\kappa}
+\newcommand{\lm}{\lambda}
+\newcommand{\rh}{\varrho}
+\newcommand{\si}{\sigma}
+\newcommand{\ph}{\varphi}
+\newcommand{\om}{\omega}
+
+
+
+%Characteristic
+\newcommand{\pf}{Pf) }
+\newcommand{\sol}{Sol) }
+\newcommand{\sx}[2]{\{#1:#2\}}							%set
+\newcommand{\Sx}[2]{\left\{#1:#2\right\}}				%large set
+%\renewcommand{\qed}{$$\therefore\mrm{Q. E. D}$$}		%quod erat demonstrandum.
+\renewcommand{\rest}{|}
+
+
+
+\begin{document}
+	
+	
+	\watermarkoff\maketitle
+	\thispagestyle{empty}
+	
+	\tableofcontents
+	\newpage\watermarkon
+	
+	
+	%Preface
+	\chapter*{Preface}
+	\addcontentsline{toc}{chapter}{Preface}
+	
+	
+	
+	%Chapter 1
+	\chapter{LaTeX Form}
+	
+	
+	
+	%Section 1.1
+	\section{LaTeX Form by Dyne Simian}
+	
+	
+	
+	%1.1
+	\begin{nex}[New Texts]
+		%
+		\tn{\\(Text)}
+		%
+	\end{nex}
+	
+	
+	%Theorem 1.2
+	\begin{theorem}[New Theorem]
+		%
+		\tn{\\(Theorem)\\
+			%
+			\begin{enumerate}[label=(\alph*)]
+				\item Item
+				\setItemnumber{3}
+				\item New Item
+		\end{enumerate}}
+		%
+	\end{theorem}
+	
+	
+	%Exercise 1
+	\section*{Exercises}
+	\addcontentsline{toc}{section}{Exercises}
+	
+	
+	
+	%Part Appendix
+	\titleformat{\part}[display]
+	{\Huge\bfseries\centering}
+	{\thepart}{20pt}
+	{\thispagestyle{empty}}
+	
+	\renewcommand{\thepart}{}
+	\part{Appendix}
+	
+	
+	
+	
+	\titleformat{\chapter}[hang]{\Huge\bfseries}{\dual{\Large{APPENDIX}/\thechapter}
+		\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+	
+	
+	%Chapter Appendix A
+	\renewcommand{\thechapter}{A}
+	
+	\chapter{New Appendix}
+	
+	
+	
+	%Bibliography
+	\renewcommand\bibname{Bibliography (참고문헌)}
+	\begin{thebibliography}{12}
+		%
+		\addcontentsline{toc}{chapter}{Bibliography (참고문헌)}
+		%
+		\bibitem{1} L. V. Ahlfors: ``Complex Analysis,'' 3d ed., McGraw-Hill Book Company, New York, 1978.
+		%
+	\end{thebibliography}
+	
+	
+	
+	%Symbol Index
+	\printindex[symb]
+	
+	
+	
+	%Index
+	\printindex
+	
+	
+	
+	%English Index
+	\printindex[eng]
+	
+	
+	
+\end{document}
